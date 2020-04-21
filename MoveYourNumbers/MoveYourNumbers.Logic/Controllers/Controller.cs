@@ -7,60 +7,143 @@ namespace MoveYourNumbers.Logic.Controllers
 {
     internal class Controller : IController
     {
-        private const int MAX_FIELDS = 16;
-        public int?[] GameNumbers { get; private set; }
-        public int Moves { get; private set; }
 
-        public bool IsFinished { get; private set; }
-
-        public bool[] NumberFieldsEnabled { get; private set; }
-
-        public bool[] IsEmptyNumberField { get; private set; }
-
-        public Controller()
+        public async Task<int?[]> ResetGameNumbers(int edgeLength)
         {
-            GameNumbers = new int?[MAX_FIELDS];
-            NumberFieldsEnabled = new bool[MAX_FIELDS];
-            IsEmptyNumberField = new bool[MAX_FIELDS];
+            Random rnd = new Random();
+            int fields = edgeLength * edgeLength;
+            if (fields != 9 && fields != 16 && fields != 25)
+                throw new ArgumentException($"{nameof(edgeLength)} - Not accepted edge length");
+            int[] initNumbers = new int[fields];
+            int?[] gameNumbers = new int?[fields];
+
+            for (int i = 0; i < initNumbers.Length-1; )
+            {
+                int candidate = rnd.Next(1, fields);
+                if ((IsInArray(initNumbers, candidate)) == false)
+                {
+                    initNumbers[i] = candidate;
+                    i++;
+                }
+            }
+
+            return await AssignGameNumbers(initNumbers);
         }
-        public async Task Move(int oldPosition, int newPosition)
+
+        public async Task<bool[]> GetEnabledNumberFields(int?[] gameNumbers, int edgeLength)
         {
-            GameNumbers = await SwitchFieldPosition(oldPosition, newPosition);
-            IsFinished = await EvaluateGameFinished(GameNumbers);
+            if (gameNumbers == null)
+                throw new ArgumentNullException(nameof(gameNumbers));
+
+            if (gameNumbers.Length != edgeLength * edgeLength)
+                throw new ArgumentException($"{nameof(edgeLength)} - didn´t match to {nameof(gameNumbers)}");
+
+            bool[] enabledFields = new bool[gameNumbers.Length];
+            int emptyFieldPosition = await FindEmptyFieldIndex(gameNumbers);
+
+            enabledFields[emptyFieldPosition] = true;
+            if (((emptyFieldPosition + 1) % edgeLength) != 0) //right field is possible
+            {
+                enabledFields[emptyFieldPosition + 1] = true;
+            }
+            if (emptyFieldPosition != 0 && emptyFieldPosition % edgeLength != 0) // left field is possible
+            {
+                enabledFields[emptyFieldPosition - 1] = true;
+            }
+            if ((emptyFieldPosition + edgeLength) < gameNumbers.Length) // down field is possible
+            {
+                enabledFields[emptyFieldPosition + edgeLength] = true;
+            }
+            if ((emptyFieldPosition - edgeLength) >= 0) // up field is possible
+            {
+                enabledFields[emptyFieldPosition - edgeLength] = true;
+            }
+
+            return enabledFields;
         }
 
-        public async Task Reset()
+        private Task<int> FindEmptyFieldIndex(int?[] gameNumbers)
         {
-            IsFinished = false;
-            GameNumbers = await InitGameField();
-            IsEmptyNumberField = await GetEmptyFieldBitMap(GameNumbers);
-            NumberFieldsEnabled = await GetNeighbourFields(IsEmptyNumberField);
+            return Task.Run(() =>
+            {
+                for (int i = 0; i < gameNumbers.Length; i++)
+                {
+                    if (gameNumbers[i] == null)
+                        return i;
+                }
+
+                throw new ApplicationException($"{nameof(gameNumbers)} - Can´t find empty field!");
+            });
+        }
+
+        public Task<int?[]> Move(int?[] actualGameNumbers, bool[] enabledNumberFields, int newPosition)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IController.IsFinished(int?[] gameNumbers)
+        {
+            return Task.Run(async () =>
+            {
+                if (gameNumbers == null)
+                    throw new ArgumentNullException(nameof(gameNumbers));
+
+                List<int> numbers = new List<int>();
+                int emptyFieldPosition = await FindEmptyFieldIndex(gameNumbers);
+
+                for (int i = 0; i < gameNumbers.Length; i++)
+                {
+                    if (i != emptyFieldPosition)
+                    {
+                        numbers.Add((int)gameNumbers[i]);
+                    }
+                }
+
+                for (int i = 1; i < numbers.Count; i++)
+                {
+                    if (numbers[i - 1] + 1 != numbers[i])
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
         }
 
         #region PrivateMethods
-        private Task<int?[]> SwitchFieldPosition(int oldPosition, int newPosition)
+
+        private Task<int?[]> AssignGameNumbers(int[] numbers)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                int?[] gameNumbers = new int?[numbers.Length];
+                for (int i = 0; i < numbers.Length; i++)
+                {
+                    if (numbers[i] == 0)
+                    {
+                        gameNumbers[i] = null;
+                    }
+                    else
+                    {
+                        gameNumbers[i] = numbers[i];
+                    }
+                }
+                return gameNumbers;
+            });
         }
 
-        private Task<bool> EvaluateGameFinished(int?[] gameNumbers)
-        {
-            throw new NotImplementedException();
-        }
 
-        private Task<bool[]> GetNeighbourFields(bool[] isEmptyNumberField)
+        private bool IsInArray(int[] numbers, int candidate)
         {
-            throw new NotImplementedException();
-        }
-
-        private Task<bool[]> GetEmptyFieldBitMap(int?[] gameNumbers)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<int?[]> InitGameField()
-        {
-            throw new NotImplementedException();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] == candidate)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion
