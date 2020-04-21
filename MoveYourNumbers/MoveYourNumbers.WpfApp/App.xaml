@@ -4,6 +4,25 @@
              xmlns:local="clr-namespace:MoveYourNumbers.WpfApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="NumberButton" TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="MinHeight" Value="60"/>
+            <Setter Property="FontSize" Value="27"/>
+            <Style.Triggers>
+                <Trigger Property="HasContent" Value="true">
+                    <Setter Property="Background" Value="GhostWhite"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="MaxWidth" Value="50"/>
+            <Setter Property="MaxHeight" Value="50"/>
+        </Style>
+        <Style TargetType="UniformGrid">
+            <Setter Property="Margin" Value="10,10,10,10"/>
+        </Style>
     </Application.Resources>
 </Application>
