@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoveYourNumbers.WpfApp.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="520" MinWidth="640">
+        Title="MoveYourNumbers von Michael Engleder" MinHeight="520" MinWidth="640">
 
     <Window.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
@@ -29,41 +29,58 @@
             <Border Grid.Row="1" Grid.Column="0" BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Width="380">
                 <UniformGrid Grid.Row="1" Rows="4" Columns="4">
                     <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[0], Mode=OneWay}" 
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[0], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[0], Mode=OneWay}" CommandParameter="0" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[1], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[1], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[1], Mode=OneWay}"  CommandParameter="1" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[2], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[2], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[2], Mode=OneWay}"  CommandParameter="2" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[3], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[3], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[3], Mode=OneWay}"  CommandParameter="3" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[4], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[4], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[4], Mode=OneWay}"  CommandParameter="4" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[5], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[5], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[5], Mode=OneWay}"  CommandParameter="5" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[6], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[6], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[6], Mode=OneWay}"  CommandParameter="6" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[7], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[7], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[7], Mode=OneWay}"  CommandParameter="7" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[8], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[8], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[8], Mode=OneWay}"  CommandParameter="8" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[9], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[9], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[9], Mode=OneWay}"  CommandParameter="9" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[10], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[10], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[10], Mode=OneWay}"  CommandParameter="10" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[11], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[11], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[11], Mode=OneWay}"  CommandParameter="11" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[12], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[12], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[12], Mode=OneWay}"  CommandParameter="12" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[13], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[13], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[13], Mode=OneWay}"  CommandParameter="13" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[14], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[14], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[14], Mode=OneWay}"  CommandParameter="14" 
+                            Command="{Binding CmdNumButton}"></Button>
                     <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource NumberButton}" Content="{Binding Path= GameNumbers[15], Mode=OneWay}"
-                            IsEnabled="{Binding Path=NumberFieldsEnabled[15], Mode=OneWay}"></Button>
+                            IsEnabled="{Binding Path=NumberFieldsEnabled[15], Mode=OneWay}"  CommandParameter="15" 
+                            Command="{Binding CmdNumButton}"></Button>
                 </UniformGrid>
             </Border>
         </Grid>
-        <Button Grid.Row="0" Grid.Column="1" Width="140" MaxHeight="45" Margin="25,0,0,99" HorizontalAlignment="Left" Height="87" VerticalAlignment="Bottom">Neues Spiel</Button>
+        <Button Grid.Row="0" Grid.Column="1" Width="140" MaxHeight="45" Margin="25,0,0,99" HorizontalAlignment="Left" Height="87" VerticalAlignment="Bottom" 
+                Command="{Binding CmdReset}">Neues Spiel</Button>
         <Grid Grid.Row="1" Grid.Column="1" Height="140" Margin="25,35,0,0" HorizontalAlignment="Left" Width="140" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -75,11 +92,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="1" Content="Up" Style="{StaticResource NavButton}"/>
-            <Button Grid.Row="2" Grid.Column="1" Content="Down" Style="{StaticResource NavButton}"/>
-            <Button Grid.Row="1" Grid.Column="0" Content="Left" Style="{StaticResource NavButton}"/>
-            <Button Grid.Row="1" Grid.Column="2" Content="Right" Style="{StaticResource NavButton}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Up" Style="{StaticResource NavButton}" Command="{Binding CmdUp}"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="Down" Style="{StaticResource NavButton}" Command="{Binding CmdDown}"/>
+            <Button Grid.Row="1" Grid.Column="0" Content="Left" Style="{StaticResource NavButton}" Command="{Binding CmdLeft}"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="Right" Style="{StaticResource NavButton}" Command="{Binding CmdRight}"/>
         </Grid>
-        <Label Grid.Row="2" Grid.Column="0">Moves:</Label>
+        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Path=Moves, Mode=OneWay}"></Label>
     </Grid>
 </Window>

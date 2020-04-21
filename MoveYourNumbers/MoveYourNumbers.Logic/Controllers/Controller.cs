@@ -62,23 +62,26 @@ namespace MoveYourNumbers.Logic.Controllers
             return enabledFields;
         }
 
-        private Task<int> FindEmptyFieldIndex(int?[] gameNumbers)
+        public async Task<int?[]> Move(int?[] actualGameNumbers, bool[] enabledNumberFields, int newPositionIndex)
         {
-            return Task.Run(() =>
+            if (actualGameNumbers == null)
+                throw new ArgumentNullException(nameof(actualGameNumbers));  
+            if (enabledNumberFields == null)
+                throw new ArgumentNullException(nameof(enabledNumberFields));
+            if (actualGameNumbers.Length != enabledNumberFields.Length)
+                throw new ArgumentException($"Range of array {nameof(actualGameNumbers)} didn´t match the range of the arry {nameof(enabledNumberFields)}");
+
+            if (newPositionIndex >= 0 && newPositionIndex < actualGameNumbers.Length)
             {
-                for (int i = 0; i < gameNumbers.Length; i++)
+                int emptyFieldPosition = await FindEmptyFieldIndex(actualGameNumbers);
+
+                if (enabledNumberFields[newPositionIndex])
                 {
-                    if (gameNumbers[i] == null)
-                        return i;
+                    actualGameNumbers[emptyFieldPosition] = actualGameNumbers[newPositionIndex];
+                    actualGameNumbers[newPositionIndex] = null;
                 }
-
-                throw new ApplicationException($"{nameof(gameNumbers)} - Can´t find empty field!");
-            });
-        }
-
-        public Task<int?[]> Move(int?[] actualGameNumbers, bool[] enabledNumberFields, int newPosition)
-        {
-            throw new NotImplementedException();
+            }
+            return actualGameNumbers;
         }
 
         Task<bool> IController.IsFinished(int?[] gameNumbers)
@@ -111,6 +114,11 @@ namespace MoveYourNumbers.Logic.Controllers
             });
         }
 
+        public Task<int> GetEmptyFieldPosition(int?[] gameNumbers)
+        {
+            return FindEmptyFieldIndex(gameNumbers);
+        }
+
         #region PrivateMethods
 
         private Task<int?[]> AssignGameNumbers(int[] numbers)
@@ -133,6 +141,19 @@ namespace MoveYourNumbers.Logic.Controllers
             });
         }
 
+        private Task<int> FindEmptyFieldIndex(int?[] gameNumbers)
+        {
+            return Task.Run(() =>
+            {
+                for (int i = 0; i < gameNumbers.Length; i++)
+                {
+                    if (gameNumbers[i] == null)
+                        return i;
+                }
+
+                throw new ApplicationException($"{nameof(gameNumbers)} - Can´t find empty field!");
+            });
+        }
 
         private bool IsInArray(int[] numbers, int candidate)
         {

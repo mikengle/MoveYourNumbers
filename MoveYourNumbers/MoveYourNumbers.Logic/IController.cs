@@ -37,5 +37,12 @@ namespace MoveYourNumbers.Logic
         /// <param name="gameNumbers"></param>
         /// <returns></returns>
         Task<bool> IsFinished(int?[] gameNumbers);
+
+        /// <summary>
+        /// Returns index of field with null
+        /// </summary>
+        /// <param name="gameNumbers"></param>
+        /// <returns>int emptyFieldIndex</returns>
+        Task<int> GetEmptyFieldPosition(int?[] gameNumbers);
     }
 }
