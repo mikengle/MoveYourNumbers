@@ -10,4 +10,8 @@
     <ProjectReference Include="..\MoveYourNumbers.Logic\MoveYourNumbers.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
